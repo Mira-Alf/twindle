@@ -4,7 +4,7 @@ const { createLibraryIfNotExists } = require("./utils/library");
 const getCommandlineArgs = (processArgv) =>
   yargs(processArgv)
     .usage(
-      "Usage: -i <tweet id> -f <file format> -o <filename> -s <send to kindle email| Optionally pass kindle email here>"
+      "Usage: -i <tweet id> -u <user_id> -n <default_num_tweets> -f <file format> -o <filename> -s <send to kindle email| Optionally pass kindle email here>"
     )
     .option({
       i: {
@@ -28,7 +28,7 @@ const getCommandlineArgs = (processArgv) =>
         type: "string",
       },
       s: {
-        alias: "sendKindleEmail",
+        alias: "kindleEmail",
         demandOption: false,
         describe:
           "Send document to your kindle email. Optionally pass kindle email here if not configured in .env file",
@@ -46,6 +46,25 @@ const getCommandlineArgs = (processArgv) =>
         demandOption: false,
         describe: "Should use Puppeteer or not",
         type: "boolean",
+      },
+      a: {
+        alias: "appendToFilename",
+        demandOption: false,
+        describe: "Append string to the filename",
+        type: "string"
+      },
+      u: {
+        alias: "userId",
+        demandOption: false,
+        describe: "The Twitter ID of the user whose timeline of recent tweets you are trying to read",
+        type: "string",
+      },
+      n: {
+        alias: "numTweets",
+        demandOption: false,
+        describe: "Used together with u option to specify the number of tweets to be read",
+        type: "integer",
+        default: 10
       },
     }).argv;
 
