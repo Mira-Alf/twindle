@@ -52,10 +52,6 @@
     ul li {
       margin: 0;
 
-      page-break-before: always;
-      page-break-inside: avoid;
-      page-break-after: always;
-
       width: 100%;
 
       padding: 1rem 0;
@@ -261,12 +257,15 @@
 
 <body>
 
-
+  {{#each threads}}
   {{#if common}}
   <div class="tweetContainer">
     <div class="header">
+      {{#if common.user}}
       <img src="{{common.user.profile_image_url}}" alt="{{common.user.username}}" />
+      {{/if}}
       <div>
+        {{#if common.user}}
         <h3>
           {{common.user.name}}
           {{#if common.user.verified}}
@@ -278,7 +277,7 @@
           </svg>
           {{/if}}
           <span class="user-handle">
-            {{common.user.username}}
+            <a href="https://twitter.com/{{common.user.username}}/">{{common.user.username}}</a>
           </span>
         </h3>
         <p>
@@ -286,6 +285,7 @@
             {{{common.user.description}}}
           </span>
         </p>
+        {{/if}}
         <p>
           <span>
             Number of tweets:
@@ -303,7 +303,7 @@
   </div>
   {{/if}}
   <ul>
-    {{#each thread}}
+    {{#each data}}
     <li>
       <div class="tweetContainer">
         <p>
@@ -396,6 +396,7 @@
     </li>
     {{/each}}
   </ul>
+  {{/each}}
 
 
   <script>
